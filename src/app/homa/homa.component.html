@@ -1,0 +1,116 @@
+
+
+
+
+
+
+<!-- Button trigger modal -->
+
+<div class=" container mt-5 text-end">
+      <button (click)="resetValue()" type="button" class="btn draw-border mt-5" data-bs-toggle="modal" data-bs-target="#addNote">Add note</button>
+</div>
+
+  
+<!-- add note -->
+  <div class="modal fade h-100" id="addNote" tabindex="-1" aria-labelledby="addNoteLabel" aria-hidden="true">
+    <div class="modal-dialog h-75">
+      <div class="modal-content h-100 modalBG">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add note</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body h-100">
+          <form [formGroup] ='addNote' class="h-100">
+              <input formControlName = "title" type="text" class="form-control" placeholder="title">
+              <br>
+              <textarea formControlName = 'desc' class="form-control h-75" placeholder="description"></textarea>
+          </form>
+        </div>
+        <div class="modal-footer mt-3">
+          <button  type="submit" (click)='addData()' class="addBtn" >Add note</button>
+          <button  type="button" class="deleteBtn" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!--add note-->
+
+
+<section class="container py-5">
+    <div *ngIf="!isLoad" class="text-center text-white">
+      <i class="fas fa-spinner fa-2x fs-1 fa-spin"></i>
+    </div>
+  <div class="row"  *ngIf="isLoad">
+
+    <div  *ngFor="let note of allNotes" class="col-lg-3 bg-transparent text-center mb-3">
+      <div class="noteBG border border-white p-4">
+        <div class="text-end">
+          <div class="dropdown">
+            <i class="fas fa-ellipsis-v" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>            
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item d-flex justify-content-between" (click)='getID(note._id);setValue()' href="#" data-bs-toggle="modal" data-bs-target="#editNote">Edit <i class="far fa-edit"></i></a></li>
+              <li><a class="dropdown-item d-flex justify-content-between" (click)='getID(note._id)' href="#" data-bs-toggle="modal" data-bs-target="#deleteNote">Delete <i class="far fa-trash-alt"></i></a></li>
+            </ul>
+          </div>
+        </div>
+        <h2>{{note.title}}</h2>
+        <p>{{note.desc}}</p>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+<!-- edit note -->
+<div class="modal fade h-100" id="editNote" tabindex="-1" aria-labelledby="editNoteLabel" aria-hidden="true">
+  <div class="modal-dialog h-75">
+    <div class="modal-content h-100">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit note</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body h-100">
+        <form [formGroup] = 'addNote' class="h-100">
+            <input formControlName = "title" type="text" class="form-control" placeholder="title">
+            <br>
+            <textarea formControlName = "desc" class="form-control h-75" placeholder="description"></textarea>
+        </form>
+      </div>
+      <div class="modal-footer mt-3">
+        <button (click)='addUpdate()'  type="submit" class="addBtn" >Save</button>
+        <button  type="button" class="deleteBtn" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--edit note-->
+
+
+<!--delete note-->
+
+<div class="modal fade" id="deleteNote" tabindex="-1" aria-labelledby="deleteNoteLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">are you sure ?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        do you want really to delete ? <br>
+        process cannot be undone
+      </div>
+      <div class="modal-footer">
+        <button (click)="deleteNote()" type="button" class="deleteBtn" >Delete</button>
+        <button type="button" class="addBtn" data-bs-dismiss="modal">close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--delete note-->
+
+
+

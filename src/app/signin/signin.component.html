@@ -1,0 +1,39 @@
+
+<section id="animatedBG" class="position-relative py-5 overflow-hidden">
+
+
+    <div class="w-50 text-dark position-absolute top-50 start-50 translate-middle">
+
+        <div class="wrapper text-center pb-5">
+            <h1 class="fs-1">Login</h1>
+        </div>
+
+        <form [formGroup]='loginForm' (ngSubmit) = 'submitLoginForm(loginForm)'>
+
+            
+
+            <div class="mb-3">
+                <input [class.is-valid]="loginForm.controls.email.status == 'VALID'" type="email" class="form-control" formControlName = 'email' placeholder="Enter your email">
+                <div *ngIf="loginForm.get('email')?.errors != null && loginForm.get('email')?.touched" class="text-warning mt-1">
+                    <p *ngIf="loginForm.get('email')?.errors?.required">email is required</p>
+                    <p *ngIf="loginForm.get('email')?.errors?.email">email invalid</p>
+                </div>
+            </div>
+
+            <div>
+                <input [class.is-valid]="loginForm.controls.password.status == 'VALID'" type="password" class="form-control" formControlName = 'password' placeholder="Your password">
+                <div *ngIf="loginForm.get('password')?.errors != null && loginForm.get('password')?.touched" class="text-warning mt-1">
+                    <p *ngIf="loginForm.get('password')?.errors?.required">password is required</p>
+                    <p *ngIf="loginForm.get('password')?.errors?.pattern">password invalid</p>
+                </div>
+            </div>
+
+            <div *ngIf='error' class="alert alert-danger">{{error}}</div>
+
+            <button [disabled]='loginForm.invalid' type="submit" class="btn draw-border w-100 mt-3">Login</button>
+
+
+        </form>
+    </div> 
+
+</section>
